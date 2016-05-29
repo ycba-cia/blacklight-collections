@@ -217,7 +217,6 @@ DEPENDENCIES
   jquery-rails
   pg
   rails (= 4.2.6)
-  rake
   rsolr (~> 1.0)
   rspec
   rspec-rails (~> 3.4)
