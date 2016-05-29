@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+- 2.2
+addons:
+  postgresql: '9.3'
+services:
+- postgresql
+before_script:
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+env:
+  global:
+    secure: FwjSSuoXu/BZcl+Wa+v8zVJe3zEcHpGwjj0Tz/EhIBHkg1qgSmCjt1w4R3cONFJ0Jvn4zE2iQQ1gtyoUW08O6aUCr+aBoDXpd8+OTiwuy2F+QJhEDrNh/1QeLqRpgvZornEvMsDgLMg/n8vtxNskG/fTzULxDEOpzyh8ZDZPttildWtSWgxOSe+sFqg9Q4hViw26xPksAzfqyenp1pdVhpFisoyVPMAGQWbGslsfZURuwRpDdJdOEP8Wq76TCkgEfWd50nRnKYCbJA/j/z2oFFLdmlG6ZfxSVQOJ3lTY5x/6h9JRSUMR8COFUuRqOfXjbmHYiZPIysB6qSHWngkc8QwpiTFbyK/XuPYZWy++uFyi5SGyAlUfZ/9FQjUbDg/RnKa9MY+dSoi1ot40zgd2zWmhZ5Kh+kR8szdlGriOtEmKTGXWJIJ3fEnZ8mPVCA6LqR+auxSWVgDNUvS8BR6+uYhJAjDn2N4XvdjtwlS/hDHMHOja9UeoHOEpfkig1Hxn0iyD155PsotDowC+r7yW2N2ojCLF0Dj+CX6W4/SDgDEHnlmbypRnP1x9GwAb2ETt/LUZ6oEgXi5YbLlMWSpMxfY2CsGBFlugfhrNdw3lwhnOAA3KfndwIu9XS74OBQUzI7WVoXTT1A+qAIok6nkzAui8rzdfIWKMViNG1m45hq8=
