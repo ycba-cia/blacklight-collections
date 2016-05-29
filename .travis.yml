@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+- 2.2
+addons:
+  postgresql: '9.3'
+services:
+- postgresql
+before_script:
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+env:
+  global:
+    secure: FwjSSuoXu/BZcl+Wa+v8zVJe3zEcHpGwjj0Tz/EhIBHkg1qgSmCjt1w4R3cONFJ0Jvn4zE2iQQ1gtyoUW08O6aUCr+aBoDXpd8+OTiwuy2F+QJhEDrNh/1QeLqRpgvZornEvMsDgLMg/n8vtxNskG/fTzULxDEOpzyh8ZDZPttildWtSWgxOSe+sFqg9Q4hViw26xPksAzfqyenp1pdVhpFisoyVPMAGQWbGslsfZURuwRpDdJdOEP8Wq76TCkgEfWd50nRnKYCbJA/j/z2oFFLdmlG6ZfxSVQOJ3lTY5x/6h9JRSUMR8COFUuRqOfXjbmHYiZPIysB6qSHWngkc8QwpiTFbyK/XuPYZWy++uFyi5SGyAlUfZ/9FQjUbDg/RnKa9MY+dSoi1ot40zgd2zWmhZ5Kh+kR8szdlGriOtEmKTGXWJIJ3fEnZ8mPVCA6LqR+auxSWVgDNUvS8BR6+uYhJAjDn2N4XvdjtwlS/hDHMHOja9UeoHOEpfkig1Hxn0iyD155PsotDowC+r7yW2N2ojCLF0Dj+CX6W4/SDgDEHnlmbypRnP1x9GwAb2ETt/LUZ6oEgXi5YbLlMWSpMxfY2CsGBFlugfhrNdw3lwhnOAA3KfndwIu9XS74OBQUzI7WVoXTT1A+qAIok6nkzAui8rzdfIWKMViNG1m45hq8=
+deploy:
+  provider: heroku
+  app:
+    master: ycba-collections-staging
+  api_key:
+    secure: c2u4TqDz5UtMN0Y9drpjPfxbRO0KiHvMSxCvfhvdALCJrnP+Xj0d3Oti64RC5mHGwX/1M9DxE6vrDyw6t/re+EyaLKd/QyuO+99cTvfL+0U/Zl6nSDA6DpVj2isGK0UjKiTeq5CkLzHRYTP4fzf6HyqtZFr+CYYynDxBfLfIEjYk+3yAjNEqY7IdYYGKOTjtu8P89rIe9Pe0zxNNn7iUGOmxMLoXuUoVLjVl6H/pBarwQh1RPtLFc93ORI058vcCfVXmds9m7LHMQydIAcjzg3ihix30xSNDsO203HUPkZuWvLOe8dwalesLBmbwPckmWA0+pl9+40ytZfKyOavKm8Xl37Q6cis8PaV7aHfjaGpN/qHchfrLwHBE47gH94RgUJV5WVY9bILYpYI6ezjMhfp7/jf16ipQeEGO+woVdFD4YbVaQmuHc1xo1AG+lE7wMX07CGZhf0zV8TnRb8QWcScVjG++ugdmp2W4PvfvdjNhAL/OJTMKUuLOMZXlnO1uzaK/9D7Gjf1J5tOk6gl9n6K39ykVrDWlmWI6xWc1tNqtTgmfryiSbLpu8lBdBW9MDknoewT7clKm7twusf7A6CBc8O0C7sPCP61xtBUq3voXWnTvUi7/YERieKr5GqwsD1Pmufy3L9AMe2eBaItk1OYVE7NTDnRt/xnM+CDVbeU=
