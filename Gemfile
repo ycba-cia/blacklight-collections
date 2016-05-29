@@ -55,4 +55,5 @@ gem 'devise-guests', '~> 0.3'
 group :test do
   gem 'rake'
   gem 'jettywrapper', '>= 2.0'
+  gem 'pg'
 end
