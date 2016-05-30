@@ -56,3 +56,5 @@ gem 'devise-guests', '~> 0.3'
 group :test, :production do
   gem 'pg'
 end
+
+gem 'puma'
