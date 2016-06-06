@@ -12,7 +12,7 @@
 
 development:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/blacklight-core" %>
+  url: <%= ENV['YCBA_DEV_SOLR_URL'] || "http://127.0.0.1:8983/solr/blacklight-core" %>
 test: &test
   adapter: solr
   url: <%= "#{ENV['YCBA_TEST_SOLR_URL'] || 'http://127.0.0.1:8888/solr/blacklight-core'}" %>

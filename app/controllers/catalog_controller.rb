@@ -27,13 +27,13 @@ class CatalogController < ApplicationController
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
     #
-    #config.default_document_solr_params = {
+    # config.default_document_solr_params = {
     #  qt: 'document',
     #  ## These are hard-coded in the blacklight 'document' requestHandler
     #  # fl: '*',
-    #  # rows: 1
+    #  #rows: 1,
     #  # q: '{!term f=id v=$id}'
-    #}
+    # }
 
     # solr field configuration for search results/index views
     config.index.title_field = 'title_display'
@@ -67,13 +67,24 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'format_facet', label: 'Format'
-    # config.add_facet_field 'pub_date', label: 'Publication Year', single: true
-    # config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
-    # config.add_facet_field 'language_facet', label: 'Language', limit: true
-    # config.add_facet_field 'lc_1letter_facet', label: 'Call Number'
-    # config.add_facet_field 'subject_geo_facet', label: 'Region'
-    # config.add_facet_field 'subject_era_facet', label: 'Era'
+    config.add_facet_field 'resource_facet', :label => 'Online Access'
+    config.add_facet_field 'publishDate_ss', :label => 'Publication Year', single: true
+    config.add_facet_field 'collection_facet', :label => 'Collection', :limit => 20
+    config.add_facet_field 'language_facet', :label => 'Language', :limit => true
+    config.add_facet_field 'lc_1letter_facet', :label => 'Call Number'
+    #config.add_facet_field 'geographic_facet', :label => 'Region'
+    config.add_facet_field 'auth_author_display_facet', :label => 'Creator'
+    config.add_facet_field 'author_gender_ss', :label => 'Creator Gender'
+    config.add_facet_field 'title_collective_ss', :label => 'Collective Title'
+    config.add_facet_field 'era_facet', :label => 'Period'
+    config.add_facet_field 'genre_name_facet', :label => 'Genre'
+    config.add_facet_field 'object_name_ss', :label => 'Work Type'
+    config.add_facet_field 'auth_format_ss', :label => 'Medium'
+    config.add_facet_field 'topic_facet', :label => 'Subject Terms'
+    config.add_facet_field 'geographic_facet', :label => 'Place Represented'
+    config.add_facet_field 'topic_frameQuality_facet', :label => 'Frame Quality'
+    config.add_facet_field 'topic_frameStyle_facet', :label => 'Frame Style'
+    config.add_facet_field 'credit_line_facet', :label => 'Credit Line'
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 
