@@ -110,3 +110,26 @@ body {
 .facet-label {
   font-size: 12px;
 }
+
+.ycba-thumbnail {
+
+}
+
+.document-metadata dt {
+  margin-left: 10px;
+  width: auto;
+}
+
+.document-metadata dd {
+  margin-left: 70px;
+}
+
+@media (max-width: 768px) {
+  .document-metadata dd {
+    margin-left: 0px;
+  }
+  .document-metadata dt {
+    margin-left: 0px;
+  }
+}
+
