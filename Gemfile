@@ -35,6 +35,7 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails', '~> 3.4'
   gem 'coveralls', require: false
+  gem 'travis'
 end
 
 group :development do
