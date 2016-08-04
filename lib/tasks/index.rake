@@ -1,5 +1,8 @@
 require 'rubygems'
 require 'rsolr'
+require 'rexml/document'
+
+include REXML
 
 namespace :index do
   desc "Copy index from CCD Solr to Blacklight Solr"
@@ -36,6 +39,17 @@ namespace :index do
         end
         docClone=doc.clone
 
+        if doc['fullrecord']
+          xml = REXML::Document.new(doc['fullrecord'])
+          #puts xml
+          ort = XPath.first(xml, '//lido:rightsWorkSet/lido:rightsType/lido:conceptID[@lido:type="object copyright"]')
+          rightsURL = XPath.first(xml, '//lido:legalBodyID[@lido:type="URL"]')
+          ort = ort.text if ort
+          rightsURL = rightsURL.text if rightsURL
+          doc['ort_ss'] = ort
+          doc['rightsURL_ss'] = rightsURL
+        end
+
         docClone.each do |key, array|
           if key!="id" and !key.end_with?("_facet")
             value=doc.delete(key)
@@ -55,6 +69,15 @@ namespace :index do
       sleep(1)  #be kind to others :)
     end
     target_solr.optimize
+  end
+
+  desc 'Clear the index.  Deletes all documents in the index'
+  task clear: :environment do
+    SOLR_CONFIG = Rails.application.config_for(:blacklight)
+    solr = RSolr.connect :url => SOLR_CONFIG['url']
+    solr.delete_by_query "id:*"
+    solr.commit
+    solr.optimize
   end
 
 end
