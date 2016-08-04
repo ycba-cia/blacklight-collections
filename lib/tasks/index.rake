@@ -46,8 +46,16 @@ namespace :index do
           rightsURL = XPath.first(xml, '//lido:legalBodyID[@lido:type="URL"]')
           ort = ort.text if ort
           rightsURL = rightsURL.text if rightsURL
+
+          videos = []
+          videoURL = XPath.each(xml, '//lido:linkResource[@lido:formatResource="video"]') { |video|
+            videos.append(video.text)
+          }
+
           doc['ort_ss'] = ort
           doc['rightsURL_ss'] = rightsURL
+          doc['videoURL_ss'] = videos
+
         end
 
         docClone.each do |key, array|
