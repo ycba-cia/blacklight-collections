@@ -128,6 +128,9 @@ class CatalogController < ApplicationController
     config.add_show_field 'topic_txt', :label => 'Subject Terms'
     config.add_show_field 'citation_txt', :label => 'Publications'
     config.add_show_field 'resourceURL_txt', :label => 'screen'
+    config.add_show_field 'rights_txt', :label => 'rights (download)'
+    config.add_show_field 'rightsURL_ss', :label => 'rights statement (download)'
+    config.add_show_field 'ort_ss', :label => 'ORT'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
