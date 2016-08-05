@@ -17,7 +17,7 @@ namespace :index do
     while stop!=true
       # send a request to /select
       response = solr.post 'select', :params => {
-          :q=>'recordtype:"lido"',
+          :q=>'institution:"Yale Center for British Art" and recordtype:"marc"',
           :sort=>'id asc',
           :start=>start,
           :rows=>100
@@ -40,27 +40,29 @@ namespace :index do
         docClone=doc.clone
 
         if doc['fullrecord']
-          xml = REXML::Document.new(doc['fullrecord'])
-          #puts xml
-          ort = XPath.first(xml, '//lido:rightsWorkSet/lido:rightsType/lido:conceptID[@lido:type="object copyright"]')
-          rightsURL = XPath.first(xml, '//lido:legalBodyID[@lido:type="URL"]')
-          ort = ort.text if ort
-          rightsURL = rightsURL.text if rightsURL
+          if doc['recordtype'] == "lido"
+            xml = REXML::Document.new(doc['fullrecord'])
+            #puts xml
+            ort = XPath.first(xml, '//lido:rightsWorkSet/lido:rightsType/lido:conceptID[@lido:type="object copyright"]')
+            rightsURL = XPath.first(xml, '//lido:legalBodyID[@lido:type="URL"]')
+            ort = ort.text if ort
+            rightsURL = rightsURL.text if rightsURL
 
-          videos = []
-          videoURL = XPath.each(xml, '//lido:linkResource[@lido:formatResource="video"]') { |video|
-            videos.append(video.text)
-          }
+            videos = []
+            videoURL = XPath.each(xml, '//lido:linkResource[@lido:formatResource="video"]') { |video|
+              videos.append(video.text)
+            }
 
-          citations = []
-          XPath.each(xml, '//lido:relatedWorkSet/lido:relatedWork/lido:object/lido:objectNote') { |citation|
-            citations.append(citation.text)
-          }
+            citations = []
+            XPath.each(xml, '//lido:relatedWorkSet/lido:relatedWork/lido:object/lido:objectNote') { |citation|
+              citations.append(citation.text)
+            }
 
-          doc['ort_ss'] = ort
-          doc['rightsURL_ss'] = rightsURL
-          doc['videoURL_ss'] = videos
-          doc['citation'] = citations
+            doc['ort_ss'] = ort
+            doc['rightsURL_ss'] = rightsURL
+            doc['videoURL_ss'] = videos
+            doc['citation'] = citations
+          end
         end
 
         docClone.each do |key, array|
