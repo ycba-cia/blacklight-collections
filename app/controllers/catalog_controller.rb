@@ -116,7 +116,7 @@ class CatalogController < ApplicationController
     break_separator = {words_connector: ' <br/> ', last_word_connector: ' <br/> ', two_words_connector: ' <br/> '}
     config.add_show_field 'author_ss', :label => 'Creator', link_to_search: true
     config.add_show_field 'author_additional_ss', :label => 'Contributors', link_to_search: true  # Bibliographic
-    config.add_show_field 'title_alt_txt', :label => 'Alternate Title(s)'
+    config.add_show_field 'title_alt_txt', :label => 'Alternate Title(s)', separator_options: break_separator
     config.add_show_field 'publishDate_txt', :label => 'Date'
     config.add_show_field 'format_txt', :label => 'Medium'
     config.add_show_field 'physical_txt', :label => 'Dimensions'
