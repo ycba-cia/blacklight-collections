@@ -112,27 +112,30 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     #config.add_show_field 'title_t', :label => 'Title'
-    config.add_show_field 'author_txt', :label => 'Creator'
-    config.add_show_field 'author_additional_ss', :label => 'Contributors'  # Bibliographic
+
+    break_separator = {words_connector: ' <br/> ', last_word_connector: ' <br/> ', two_words_connector: ' <br/> '}
+    config.add_show_field 'author_ss', :label => 'Creator', link_to_search: true
+    config.add_show_field 'author_additional_ss', :label => 'Contributors', link_to_search: true  # Bibliographic
     config.add_show_field 'title_alt_txt', :label => 'Alternate Title(s)'
     config.add_show_field 'publishDate_txt', :label => 'Date'
     config.add_show_field 'format_txt', :label => 'Medium'
     config.add_show_field 'physical_txt', :label => 'Dimensions'
     config.add_show_field 'type_ss', :label => 'Classification' #Bibliographic
     config.add_show_field 'publisher_ss', :label => 'Imprint' # Bibliographic
-    config.add_show_field 'description_txt', :label => 'Inscription(s)/Marks/Lettering'
+    config.add_show_field 'description_txt', :label => 'Inscription(s)/Marks/Lettering', helper_method: 'render_citation'
     config.add_show_field 'credit_line_txt', :label => 'Credit Line'
     config.add_show_field 'callnumber_txt', :label => 'Accession Number'
     config.add_show_field 'collection_txt', :label => 'Collection'
     config.add_show_field 'geographic_culture_txt', :label => 'Culture'
     config.add_show_field 'era_txt', :label => 'Era'
-    config.add_show_field 'url_txt', :label => 'Link'
-    config.add_show_field 'topic_subjectActor_txt', :label => 'People Represented or Subject'
-    config.add_show_field 'topic_txt', :label => 'Subject Terms'
-    config.add_show_field 'citation_txt', :label => 'Publications'
-    config.add_show_field 'resourceURL_txt', :label => 'screen'
-    config.add_show_field 'rights_txt', :label => 'rights (download)'
-    config.add_show_field 'rightsURL_ss', :label => 'rights statement (download)'
+    config.add_show_field 'url_txt', :label => 'Link', helper_method: 'render_as_link'
+    config.add_show_field 'topic_subjectActor_ss', :label => 'People Represented or Subject'
+    config.add_show_field 'topic_ss', label: 'Subject Terms', link_to_search: true, separator_options: break_separator
+    config.add_show_field 'citation_txt', :label => 'Publications', helper_method: 'render_citation'
+    config.add_show_field 'resourceURL_txt', :label => 'Image'
+    config.add_show_field 'videoURL_ss', :label => 'Video', helper_method: 'render_as_link'
+    config.add_show_field 'rights_txt', :label => 'Rights (download)'
+    config.add_show_field 'rightsURL_ss', :label => 'Rights Statement', helper_method: 'render_as_link'
     config.add_show_field 'ort_ss', :label => 'ORT'
 
     # "fielded" search configuration. Used by pulldown among other places.
