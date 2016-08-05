@@ -113,10 +113,13 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     #config.add_show_field 'title_t', :label => 'Title'
     config.add_show_field 'author_txt', :label => 'Creator'
+    config.add_show_field 'author_additional_ss', :label => 'Contributors'  # Bibliographic
     config.add_show_field 'title_alt_txt', :label => 'Alternate Title(s)'
     config.add_show_field 'publishDate_txt', :label => 'Date'
     config.add_show_field 'format_txt', :label => 'Medium'
     config.add_show_field 'physical_txt', :label => 'Dimensions'
+    config.add_show_field 'type_ss', :label => 'Classification' #Bibliographic
+    config.add_show_field 'publisher_ss', :label => 'Imprint' # Bibliographic
     config.add_show_field 'description_txt', :label => 'Inscription(s)/Marks/Lettering'
     config.add_show_field 'credit_line_txt', :label => 'Credit Line'
     config.add_show_field 'callnumber_txt', :label => 'Accession Number'

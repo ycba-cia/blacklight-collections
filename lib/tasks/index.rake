@@ -17,7 +17,7 @@ namespace :index do
     while stop!=true
       # send a request to /select
       response = solr.post 'select', :params => {
-          :q=>'institution:"Yale Center for British Art" and recordtype:"marc"',
+          :q=>'institution:"Yale Center for British Art"',
           :sort=>'id asc',
           :start=>start,
           :rows=>100
