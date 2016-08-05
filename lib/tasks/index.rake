@@ -52,10 +52,15 @@ namespace :index do
             videos.append(video.text)
           }
 
+          citations = []
+          XPath.each(xml, '//lido:relatedWorkSet/lido:relatedWork/lido:object/lido:objectNote') { |citation|
+            citations.append(citation.text)
+          }
+
           doc['ort_ss'] = ort
           doc['rightsURL_ss'] = rightsURL
           doc['videoURL_ss'] = videos
-
+          doc['citation'] = citations
         end
 
         docClone.each do |key, array|
