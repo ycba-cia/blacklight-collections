@@ -29,4 +29,9 @@ module ApplicationHelper
     links.join('<br/>').html_safe
   end
 
+  def cds_info_url(id)
+    cds = Rails.application.config_for(:cds)
+    "http://#{cds['host']}/info/repository/YCBA/object/#{id}/type/2"
+  end
+
 end
