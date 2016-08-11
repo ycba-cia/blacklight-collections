@@ -105,9 +105,12 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'title_t', :label => 'Title'
-    config.add_index_field 'type_txt', :label => 'Type'
+    #config.add_index_field 'type_txt', :label => 'Type'
     config.add_index_field 'auth_author_display_txt', :label => 'Creator'
-    config.add_index_field 'format_txt', :label => 'Format'
+    config.add_index_field 'publishDate_txt', label: "Date"
+    config.add_index_field 'format_txt', :label => 'Medium'
+    config.add_index_field 'collection_txt', :label => 'Collection'
+    config.add_index_field 'credit_line_txt', :label => 'Credit Line'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display

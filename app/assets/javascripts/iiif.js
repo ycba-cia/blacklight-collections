@@ -17,6 +17,6 @@ function cdsData(url) {
         crossDomain: true,
         url: url
     }).done(function(message,text,jqXHR){
-       
+
     });
 }
