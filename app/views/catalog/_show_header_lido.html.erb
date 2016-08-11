@@ -1,5 +1,7 @@
 <%= render_document_heading(document, :tag => :h2) %>
 
+<%= image_tag document['resourceURL_ss'][0], class: 'img-responsive', style: 'max-height: 500px; margin: 0 auto; padding-bottom: 10px;' %>
+
 <div class="row">
   <div class="xs-col-10"></div>
   <div class="xs-col-2"><div id="iiif_logo"></div></div>
@@ -7,3 +9,4 @@
 
 <script language="Javascript">updateImageData(<%= document['recordID_ss'][0] %>);</script>
 <script language="Javascript">cdsData("<%= cds_info_url(document['recordID_ss'][0]) %>");</script>
+
