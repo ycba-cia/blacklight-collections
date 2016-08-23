@@ -105,9 +105,12 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'title_t', :label => 'Title'
-    config.add_index_field 'type_txt', :label => 'Type'
+    #config.add_index_field 'type_txt', :label => 'Type'
     config.add_index_field 'auth_author_display_txt', :label => 'Creator'
-    config.add_index_field 'format_txt', :label => 'Format'
+    config.add_index_field 'publishDate_txt', label: "Date"
+    config.add_index_field 'format_txt', :label => 'Medium'
+    config.add_index_field 'collection_txt', :label => 'Collection'
+    config.add_index_field 'credit_line_txt', :label => 'Credit Line'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -129,7 +132,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'geographic_culture_txt', :label => 'Culture'
     config.add_show_field 'era_txt', :label => 'Era'
     config.add_show_field 'url_txt', :label => 'Link', helper_method: 'render_as_link'
-    config.add_show_field 'topic_subjectActor_ss', :label => 'People Represented or Subject'
+    config.add_show_field 'topic_subjectActor_ss', :label => 'People Represented or Subject', link_to_search: true, separator_options: break_separator
     config.add_show_field 'topic_ss', label: 'Subject Terms', link_to_search: true, separator_options: break_separator
     config.add_show_field 'citation_txt', :label => 'Publications', helper_method: 'render_citation'
     config.add_show_field 'resourceURL_txt', :label => 'Image'
