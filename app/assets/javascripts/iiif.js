@@ -60,8 +60,8 @@ function renderCdsImages() {
         $.each(objectImages, function(index, data){
             console.log(objectImages);
             html += "<div class='col-xs-6 col-sm-3 col-md-6'>"
-                + "<a href='#' onclick='setMainImage(objectImages[" + index + "]);'><img class=' img-responsive' src='"
-                + data[1]['url'] + "'/></a>"
+                + "<div onclick='setMainImage(objectImages[" + index + "]);'><img class=' img-responsive' src='"
+                + data[1]['url'] + "'/></div>"
                 + data['metadata']['caption']
                 + "</div>";
             if ( (index + 1) % 4 == 0) {
