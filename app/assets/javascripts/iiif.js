@@ -17,32 +17,34 @@ function updateImageData( id ) {
 var objectImages = [];
 
 function cdsData(url) {
-    $.ajax({
-        type: "GET",
-        async: true,
-        crossDomain: true,
-        url: url
-    }).done(function(data,textStatus,jqXHR){
-        $.each(data, function(index, value) {
-            var d = value['derivatives'];
-            var derivatives = [];
-            derivatives['metadata'] = value['metadata'];
-            $.each(d, function(index, value) {
-                var image = [];
-                image['format'] = value['format'];
-                image['size'] = value['sizeBytes'];
-                image['id'] = value['contentId'];
-                image['width'] = value['pixelsX'];
-                image['height'] = value['pixelsY'];
-                image['url'] = value['url'];
-                derivatives[index] = image;
-                console.log(image);
+    if (objectImages.length == 0) {
+        $.ajax({
+            type: "GET",
+            async: true,
+            crossDomain: true,
+            url: url
+        }).done(function (data, textStatus, jqXHR) {
+            $.each(data, function (index, value) {
+                var d = value['derivatives'];
+                var derivatives = [];
+                derivatives['metadata'] = value['metadata'];
+                $.each(d, function (index, value) {
+                    var image = [];
+                    image['format'] = value['format'];
+                    image['size'] = value['sizeBytes'];
+                    image['id'] = value['contentId'];
+                    image['width'] = value['pixelsX'];
+                    image['height'] = value['pixelsY'];
+                    image['url'] = value['url'];
+                    derivatives[index] = image;
+                    console.log(image);
+                });
+                objectImages[index] = derivatives;
             });
-            objectImages[index] = derivatives;
+            console.log(objectImages);
+            renderCdsImages();
         });
-        console.log(objectImages);
-        renderCdsImages();
-    });
+    }
 }
 
 function renderCdsImages() {
