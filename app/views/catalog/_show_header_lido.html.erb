@@ -1,12 +1,29 @@
+
 <%= render_document_heading(document, :tag => :h2) %>
 
-<%= image_tag document['resourceURL_ss'][0], class: 'img-responsive', style: 'max-height: 500px; margin: 0 auto; padding-bottom: 10px;' %>
+<div class="col-xs-12 col-md-4 col-md-push-8">
+  <div class="row">
+    <div id="ycba-main-image" class="col-xs-12">
 
-<div class="row">
-  <div class="xs-col-10"></div>
-  <div class="xs-col-2"><div id="iiif_logo"></div></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="ycba-main-image-caption" class="col-xs-12"></div>
+  </div>
+
+  <div class="row">
+    <div id="ycba-image-rights" class="col-xs-4"><%= display_rights(document) %></div>
+    <div id="ycba-thumbnail-controls" class="col-xs-2 pull-right"></div>
+  </div>
+
+  <div class="row">
+    <div id="ycba-thumbnail-row" class="col-xs-12"></div>
+  </div>
 </div>
 
-<script language="Javascript">updateImageData(<%= document['recordID_ss'][0] %>);</script>
-<script language="Javascript">cdsData("<%= cds_info_url(document['recordID_ss'][0]) %>");</script>
+<script language="Javascript">updateImageData(<%= @document['recordID_ss'][0] %>);</script>
+<script language="Javascript">
+  cdsData("<%= cds_info_url(@document['recordID_ss'][0]) %>");
+</script>
 

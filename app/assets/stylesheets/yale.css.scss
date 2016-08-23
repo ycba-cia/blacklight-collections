@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: "theSans_plain";
   font-style: normal;
@@ -112,6 +113,22 @@ body {
 }
 
 .ycba-thumbnail {
+  max-height: 100px;
+  max-width: 200px;
+  width: auto;
+  vertical-align: top;
+}
+
+#ycba-thumbnail-row {
+
+}
+
+#ycba-thumbnail-controls {
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+#ycba-main-image {
 
 }
 
@@ -124,6 +141,23 @@ body {
   margin-left: 70px;
 }
 
+.lido .blacklight-topic_ss br {
+  display: none;
+}
+
+.lido .blacklight-topic_ss a {
+  margin-right: 5px;
+}
+
+.lido .blacklight-era_txt {
+  display: none;
+}
+
+.lido .blacklight-geographic_culture_txt {
+  display: none;
+}
+
+
 @media (max-width: 768px) {
   .document-metadata dd {
     margin-left: 0px;
@@ -132,4 +166,5 @@ body {
     margin-left: 0px;
   }
 }
+
 

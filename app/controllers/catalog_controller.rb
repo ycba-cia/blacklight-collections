@@ -132,7 +132,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'geographic_culture_txt', :label => 'Culture'
     config.add_show_field 'era_txt', :label => 'Era'
     config.add_show_field 'url_txt', :label => 'Link', helper_method: 'render_as_link'
-    config.add_show_field 'topic_subjectActor_ss', :label => 'People Represented or Subject'
+    config.add_show_field 'topic_subjectActor_ss', :label => 'People Represented or Subject', link_to_search: true, separator_options: break_separator
     config.add_show_field 'topic_ss', label: 'Subject Terms', link_to_search: true, separator_options: break_separator
     config.add_show_field 'citation_txt', :label => 'Publications', helper_method: 'render_citation'
     config.add_show_field 'resourceURL_txt', :label => 'Image'
