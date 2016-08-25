@@ -53,17 +53,24 @@ module ApplicationHelper
 
   def image_request_link(document)
     url = "http://britishart.yale.edu/request-images?"
-    url += "id=#{document['recordID_ss'][0]}&"
-    url += "num=#{document['callnumber_txt'][0]}&"
-    url += "collection=#{document['collection_txt'][0]}&"
-    url += "creator=#{document['author_ss'][0]}&"
-    url += "title=#{document['title_txt'][0]}&"
-    url += "url=#{document['url_txt'][0]}"
+    url += "id=#{field_value(document,'recordID_ss')}&"
+    url += "num=#{field_value(document,'callnumber_txt')}&"
+    url += "collection=#{field_value(document,'collection_txt')}&"
+    url += "creator=#{field_value(document,'author_ss')}&"
+    url += "title=#{field_value(document,'title_txt')}&"
+    url += "url=#{field_value(document,'url_txt')}"
     url
   end
 
   def information_link_subject(document)
-    subject = "[Online Collection] #{document['callnumber_txt'][0]}, #{document['title_txt'][0]}, #{document['author_ss'][0]} "
+    subject = "[Online Collection] #{field_value(document,'callnumber_txt')}, #{field_value(document,'title_txt')}, #{field_value(document,'author_ss')} "
+  end
+
+  private
+
+  def field_value(document, field)
+    value = document[field][0] if document[field]
+    value ||= ''
   end
 
 end
