@@ -135,11 +135,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'topic_subjectActor_ss', :label => 'People Represented or Subject', link_to_search: true, separator_options: break_separator
     config.add_show_field 'topic_ss', label: 'Subject Terms', link_to_search: true, separator_options: break_separator
     config.add_show_field 'citation_txt', :label => 'Publications', helper_method: 'render_citation'
-    config.add_show_field 'resourceURL_txt', :label => 'Image'
     config.add_show_field 'videoURL_ss', :label => 'Video', helper_method: 'render_as_link'
-    config.add_show_field 'rights_txt', :label => 'Rights (download)'
-    config.add_show_field 'rightsURL_ss', :label => 'Rights Statement', helper_method: 'render_as_link'
-    config.add_show_field 'ort_ss', :label => 'ORT'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
