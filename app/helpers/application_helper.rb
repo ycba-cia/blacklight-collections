@@ -51,4 +51,19 @@ module ApplicationHelper
     html
   end
 
+  def image_request_link(document)
+    url = "http://britishart.yale.edu/request-images?"
+    url += "id=#{document['recordID_ss'][0]}&"
+    url += "num=#{document['callnumber_txt'][0]}&"
+    url += "collection=#{document['collection_txt'][0]}&"
+    url += "creator=#{document['author_ss'][0]}&"
+    url += "title=#{document['title_txt'][0]}&"
+    url += "url=#{document['url_txt'][0]}"
+    url
+  end
+
+  def information_link_subject(document)
+    subject = "[Online Collection] #{document['callnumber_txt'][0]}, #{document['title_txt'][0]}, #{document['author_ss'][0]} "
+  end
+
 end

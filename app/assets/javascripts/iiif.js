@@ -8,7 +8,7 @@ function updateImageData( id ) {
         async: true,
         crossDomain: false,
         url: manifest
-    }).done(function(message,text,jqXHR){
+    }).success(function(message,text,jqXHR){
         $("#ycba-thumbnail-controls").append(
             "<a target='_blank' class='' href='http://mirador.britishart.yale.edu/?manifest=" + manifest + "'><img src='http://manifests.britishart.yale.edu/logo-iiif.png' class='img-responsive' alt='IIIF Manifest'></a>");
     });
@@ -23,7 +23,7 @@ function cdsData(url) {
             async: true,
             crossDomain: true,
             url: url
-        }).done(function (data, textStatus, jqXHR) {
+        }).success(function (data, textStatus, jqXHR) {
             $.each(data, function (index, value) {
                 var d = value['derivatives'];
                 var derivatives = [];
@@ -65,7 +65,7 @@ function renderCdsImages() {
                 + data['metadata']['caption']
                 + "</div>";
             if ( (index + 1) % 4 == 0) {
-                html += "<div class='clearfix visible-xs-block visible-sm-block'></div>";
+                html += "<div class='clearfix visible-xs-block visible-sm-block visible-med-block visible-lg-block'></div>";
             } else if ( (index + 1) % 2 == 0) {
                 html += "<div class='clearfix visible-med-block visible-lg-block'></div>";
             }
@@ -88,7 +88,7 @@ function setMainImage(image) {
     }
 
     if (metadata) {
-        var caption = metadata['caption'];
+        var caption = metadata['caption'] || '&nbsp;';
         if (caption) {
             $("#ycba-main-image-caption").html(caption);
         }

@@ -119,8 +119,8 @@ body {
   vertical-align: top;
 }
 
-#ycba-thumbnail-row {
-
+#ycba-thumbnail-row img {
+  padding-bottom: 5px;
 }
 
 #ycba-thumbnail-controls {
@@ -129,7 +129,7 @@ body {
 }
 
 #ycba-main-image {
-
+  padding-bottom: 5px;
 }
 
 .document-metadata dt {
@@ -157,6 +157,13 @@ body {
   display: none;
 }
 
+#ycba-object-contact-us {
+  padding-top: 30px;
+}
+
+#ycba-request-photography {
+  padding-top: 10px;
+}
 
 @media (max-width: 768px) {
   .document-metadata dd {
