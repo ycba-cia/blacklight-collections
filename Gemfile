@@ -60,3 +60,4 @@ group :test, :production do
 end
 
 gem 'puma'
+gem 'marc'
