@@ -4,7 +4,7 @@ RSpec.describe BookCoverController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do
-      get :show
+      get :show, :isbn => '0521547903'
       expect(response).to have_http_status(:success)
     end
   end
