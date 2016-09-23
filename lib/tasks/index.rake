@@ -55,8 +55,14 @@ namespace :index do
             }
 
             citations = []
-            XPath.each(xml, '//lido:relatedWorkSet/lido:relatedWork/lido:object/lido:objectNote') { |citation|
-              citations.append(citation.text)
+            XPath.each(xml, '//lido:relatedWorkSet/lido:relatedWork/lido:displayObject') { |citation|
+              close = false
+              citation = citation.text.gsub('/') { |match|
+                  value = close ? '</i>' : '<i>'
+                  close = !close
+                  value
+              } if citation.text
+              citations.append(citation)
             }
 
             doc['ort_ss'] = ort
