@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rsolr'
 require 'rexml/document'
+require 'marc'
 
 include REXML
 
@@ -94,5 +95,59 @@ namespace :index do
     solr.commit
     solr.optimize
   end
+
+  desc "Extract ISBN from MARC and add to index"
+  task add_isbn: :environment do
+    SOLR_CONFIG = Rails.application.config_for(:blacklight)
+    solr_url = SOLR_CONFIG['url']
+    solr = RSolr.connect :url => solr_url
+    stop = false
+    start = 0
+    while !stop
+      response = solr.post 'select', :params => {
+          :fq=>'id:1923763',
+          :fl=> 'recordtype_ss,id,fullrecord_txt',
+          :sort=>'id asc',
+          :start=>start,
+          :rows=>100
+      }
+      docs_returned = response['response']['docs'].length
+      stop = true if docs_returned == 0
+      start += docs_returned
+      response["response"]["docs"].each do |doc|
+        id = doc['id']
+        marc = doc['fullrecord_txt'][0]
+        marc.gsub!('#31;', "\x1F")
+        marc.gsub!('#30;', "\x1E")
+        record = MARC::Reader.decode(marc)
+        if record['020']
+          isbn = nil
+          record.each_by_tag('020') { |tag|
+            current_isbn = tag['a'] || ''
+            current_isbn = current_isbn[/[0-9]+/]
+            if current_isbn.length == 10
+              isbn = current_isbn
+            end
+          }
+          isbn = isbn[/[0-9]+/]
+          Rails.logger.info "#{id} : #{isbn}"
+          Rails.logger.info "#{record['020']}"
+          json = JSON.unparse([
+                                   { 'id' => id,
+                                     'isbn_ss' => { 'set' => isbn }
+                                   }
+                               ])
+          solr.update data: json, headers: { 'Content-Type' => 'application/json' }
+        end
+      end
+      solr.commit
+    end
+  end
+
+  desc "TODO"
+  task add_iiif: :environment do
+  end
+
+
 
 end

@@ -127,6 +127,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'publisher_ss', :label => 'Imprint' # Bibliographic
     config.add_show_field 'description_txt', :label => 'Inscription(s)/Marks/Lettering', helper_method: 'render_citation'
     config.add_show_field 'credit_line_txt', :label => 'Credit Line'
+    config.add_show_field 'isbn_ss', :label => 'ISBN'
     config.add_show_field 'callnumber_txt', :label => 'Accession Number'
     config.add_show_field 'collection_txt', :label => 'Collection'
     config.add_show_field 'geographic_culture_txt', :label => 'Culture'
