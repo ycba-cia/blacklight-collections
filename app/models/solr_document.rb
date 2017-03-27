@@ -11,10 +11,12 @@ class SolrDocument
   end
 
   def publisher
+    publisher = []
     value = self['publisher_ss']
     pub_date = self['publishDate_txt']
-    value.push(pub_date) unless value.nil? or value.empty? or pub_date.nil? or pub_date.empty?
-    (value.nil? or value.empty?) ? nil : value.join(' ')
+    publisher.push(value) unless value.nil? or value.empty?
+    publisher.push(pub_date) unless value.nil? or value.empty? or pub_date.nil? or pub_date.empty?
+    (value.nil? or value.empty?) ? nil : publisher.join(' ')
   end
 
   def orbis_link
