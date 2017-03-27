@@ -129,8 +129,9 @@ class CatalogController < ApplicationController
     config.add_show_field 'physical_description', accessor: 'physical_description', label: 'Physical Description', if: :display_marc_accessor_field?
     config.add_show_field 'edition_ss', label: 'Edition' #Bibliographic
     config.add_show_field 'orbis_link', accessor: 'orbis_link', :label => 'Full Orbis Record', helper_method: 'render_as_link', if: :display_marc_accessor_field?
+    config.add_show_field 'resourceURL_ss', :label => 'Related content', helper_method: 'render_related_content', if: :display_marc_field?
     config.add_show_field 'description_txt', :label => 'Inscription(s)/Marks/Lettering', helper_method: 'render_citation', unless:  :display_marc_field?
-    config.add_show_field 'note', accessor: 'note', :label => 'Note', helper_method: 'render_citation', if: :display_marc_accessor_field?
+    config.add_show_field 'note', accessor: 'note', :label => 'Notes', helper_method: 'render_citation', if: :display_marc_accessor_field?
     config.add_show_field 'marc_contents_txt', label: 'Contents' #Bibliographic
     config.add_show_field 'credit_line_txt', :label => 'Credit Line'
     config.add_show_field 'isbn_ss', :label => 'ISBN'
