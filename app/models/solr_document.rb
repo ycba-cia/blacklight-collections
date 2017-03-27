@@ -29,6 +29,15 @@ class SolrDocument
     self['description_txt']
   end
 
+  def cds_url
+    cds_url = nil
+    if self['url_ss'] and self['url_ss'][0].start_with?('http://hdl.handle.net/10079/bibid/')
+      cds_url = self['url_ss'][0].gsub('http://hdl.handle.net/10079/bibid/', '')
+    end
+    cds_url
+  end
+
+
   # Email uses the semantic field mappings below to generate the body of an email.
   SolrDocument.use_extension(Blacklight::Document::Email)
 
