@@ -13,6 +13,14 @@ module ApplicationHelper
     links.join('<br/>').html_safe
   end
 
+  def render_related_content options={}
+    links = []
+    options[:value].each {  |item|
+      text, url = item.split("\n")
+      links.append(link_to "#{text}", url, target: '_blank')
+    }
+    links.join('<br/>').html_safe
+  end
 
   def render_citation options={}
     citations = []
