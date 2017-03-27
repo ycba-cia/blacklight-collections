@@ -68,6 +68,7 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'resource_facet', :label => 'Online Access'
+    config.add_facet_field 'author_ss', label: 'Author'
     config.add_facet_field 'publishDate_ss', :label => 'Publication Year', single: true
     config.add_facet_field 'collection_facet', :label => 'Collection', :limit => 20
     config.add_facet_field 'language_facet', :label => 'Language', :limit => true
@@ -117,24 +118,31 @@ class CatalogController < ApplicationController
     #config.add_show_field 'title_t', :label => 'Title'
 
     break_separator = {words_connector: ' <br/> ', last_word_connector: ' <br/> ', two_words_connector: ' <br/> '}
-    config.add_show_field 'author_ss', :label => 'Creator', link_to_search: true
-    config.add_show_field 'author_additional_ss', :label => 'Contributors', link_to_search: true  # Bibliographic
+    config.add_show_field 'author_ss', :label => 'Creator', link_to_search: true, separator_options: break_separator
+    config.add_show_field 'author_additional_ss', :label => 'Contributors', link_to_search: true, separator_options: break_separator
     config.add_show_field 'title_alt_txt', :label => 'Alternate Title(s)', separator_options: break_separator
-    config.add_show_field 'publishDate_txt', :label => 'Date'
+    config.add_show_field 'publishDate_txt', :label => 'Date', unless:  :display_marc_field?
     config.add_show_field 'format_txt', :label => 'Medium'
-    config.add_show_field 'physical_txt', :label => 'Dimensions'
+    config.add_show_field 'physical_txt',  :label => 'Dimensions', unless:  :display_marc_field?
     config.add_show_field 'type_ss', :label => 'Classification' #Bibliographic
-    config.add_show_field 'publisher_ss', :label => 'Imprint' # Bibliographic
-    config.add_show_field 'description_txt', :label => 'Inscription(s)/Marks/Lettering', helper_method: 'render_citation'
+    config.add_show_field 'publisher', accessor: 'publisher', :label => 'Imprint', if: :display_marc_accessor_field? #Bibliographic
+    config.add_show_field 'physical_description', accessor: 'physical_description', label: 'Physical Description', if: :display_marc_accessor_field?
+    config.add_show_field 'edition_ss', label: 'Edition' #Bibliographic
+    config.add_show_field 'orbis_link', accessor: 'orbis_link', :label => 'Full Orbis Record', helper_method: 'render_as_link', if: :display_marc_accessor_field?
+    config.add_show_field 'description_txt', :label => 'Inscription(s)/Marks/Lettering', helper_method: 'render_citation', unless:  :display_marc_field?
+    config.add_show_field 'note', accessor: 'note', :label => 'Note', helper_method: 'render_citation', if: :display_marc_accessor_field?
+    config.add_show_field 'marc_contents_txt', label: 'Contents' #Bibliographic
     config.add_show_field 'credit_line_txt', :label => 'Credit Line'
     config.add_show_field 'isbn_ss', :label => 'ISBN'
-    config.add_show_field 'callnumber_txt', :label => 'Accession Number'
+    config.add_show_field 'callnumber_txt', :label => 'Accession Number', unless: :display_marc_field?
+    config.add_show_field 'callnumber', accessor: 'callnumber', :label => 'Call Number', if: :display_marc_accessor_field?
     config.add_show_field 'collection_txt', :label => 'Collection'
     config.add_show_field 'geographic_culture_txt', :label => 'Culture'
     config.add_show_field 'era_txt', :label => 'Era'
-    config.add_show_field 'url_txt', :label => 'Link', helper_method: 'render_as_link'
+    config.add_show_field 'url_txt', :label => 'Link', helper_method: 'render_as_link', unless:  :display_marc_field?
     config.add_show_field 'topic_subjectActor_ss', :label => 'People Represented or Subject', link_to_search: true, separator_options: break_separator
-    config.add_show_field 'topic_ss', label: 'Subject Terms', link_to_search: true, separator_options: break_separator
+    config.add_show_field 'topic_ss', :label => 'Subject Terms', link_to_search: 'topic_facet', separator_options: break_separator
+    config.add_show_field 'form_genre_ss', :label => 'Form Genre', link_to_search: true, separator_options: break_separator  #Bibliographic
     config.add_show_field 'citation_txt', :label => 'Publications', helper_method: 'render_citation'
     config.add_show_field 'videoURL_ss', :label => 'Video', helper_method: 'render_as_link'
 
@@ -214,4 +222,14 @@ class CatalogController < ApplicationController
     config.autocomplete_enabled = true
     config.autocomplete_path = 'suggest'
   end
+
+  def display_marc_field?(context, doc)
+    doc['recordtype_ss'] and doc['recordtype_ss'][0].to_s == 'marc'
+  end
+
+  def display_marc_accessor_field?(context, doc)
+    puts "#{context.accessor} ****> #{doc.send(context.accessor)}"
+    display_marc_field?(context, doc) and !doc.send(context.accessor).nil?
+  end
+
 end
