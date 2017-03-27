@@ -68,13 +68,16 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'resource_facet', :label => 'Online Access'
-    config.add_facet_field 'author_ss', label: 'Author'
+
     config.add_facet_field 'publishDate_ss', :label => 'Publication Year', single: true
     config.add_facet_field 'collection_facet', :label => 'Collection', :limit => 20
     config.add_facet_field 'language_facet', :label => 'Language', :limit => true
     config.add_facet_field 'lc_1letter_facet', :label => 'Call Number'
+
     #config.add_facet_field 'geographic_facet', :label => 'Region'
-    config.add_facet_field 'auth_author_display_facet', :label => 'Creator'
+    #config.add_facet_field 'auth_author_display_facet', :label => 'Creator'
+    config.add_facet_field 'author_ss', label: 'Creator'
+
     config.add_facet_field 'author_gender_ss', :label => 'Creator Gender'
     config.add_facet_field 'title_collective_ss', :label => 'Collective Title'
     config.add_facet_field 'era_facet', :label => 'Period'
