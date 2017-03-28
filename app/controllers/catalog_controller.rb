@@ -89,6 +89,7 @@ class CatalogController < ApplicationController
 
     config.add_facet_field 'author_additional_ss', label: 'Contributor', show: false
     config.add_facet_field 'topic_subjectActor_ss', label: 'People Represented or Subject', show: false
+    config.add_facet_field 'form_genre_ss', label: 'Form Genre', show: false
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 
