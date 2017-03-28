@@ -73,11 +73,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'collection_facet', :label => 'Collection', :limit => 20
     config.add_facet_field 'language_facet', :label => 'Language', :limit => true
     config.add_facet_field 'lc_1letter_facet', :label => 'Call Number'
-
     #config.add_facet_field 'geographic_facet', :label => 'Region'
-    #config.add_facet_field 'auth_author_display_facet', :label => 'Creator'
     config.add_facet_field 'author_ss', label: 'Creator'
-
     config.add_facet_field 'author_gender_ss', :label => 'Creator Gender'
     config.add_facet_field 'title_collective_ss', :label => 'Collective Title'
     config.add_facet_field 'era_facet', :label => 'Period'
@@ -89,6 +86,9 @@ class CatalogController < ApplicationController
     config.add_facet_field 'topic_frameQuality_facet', :label => 'Frame Quality'
     config.add_facet_field 'topic_frameStyle_facet', :label => 'Frame Style'
     config.add_facet_field 'credit_line_facet', :label => 'Credit Line'
+
+    config.add_facet_field 'author_additional_ss', label: 'Contributor', show: false
+    config.add_facet_field 'topic_subjectActor_ss', label: 'People Represented or Subject', show: false
 
     #config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
 
@@ -146,6 +146,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'url_txt', :label => 'Link', helper_method: 'render_as_link', unless:  :display_marc_field?
     config.add_show_field 'topic_subjectActor_ss', :label => 'People Represented or Subject', link_to_search: true, separator_options: break_separator
     config.add_show_field 'topic_ss', :label => 'Subject Terms', link_to_search: 'topic_facet', separator_options: break_separator
+    config.add_show_field 'geographic_facet', label: 'Place Represented', link_to_search: true, separator_options: break_separator
     config.add_show_field 'form_genre_ss', :label => 'Form Genre', link_to_search: true, separator_options: break_separator  #Bibliographic
     config.add_show_field 'citation_txt', :label => 'Publications', helper_method: 'render_citation'
     config.add_show_field 'videoURL_ss', :label => 'Video', helper_method: 'render_as_link'
