@@ -16,6 +16,34 @@ function updateImageData( id ) {
 
 var objectImages = [];
 
+function fancybox(index) {
+    var fbsrc = [];
+    $.each(objectImages, function (index, derivative) {
+        console.log(derivative);
+        var image = {
+            opts: {}
+        };
+        if (derivative['metadata']) {
+            image['opts']['caption'] = derivative['metadata']['caption']
+        }
+        var size = 0;
+       $.each(derivative, function(index, d) {
+           if (d != null && d['size'] > size && d['format'] === 'image/jpeg') {
+               image['src'] = d['url'];
+           }
+       });
+       console.log(image['src']);
+       if (image['src'] != null) {
+           image['opts'] = { iframe: { preload: true }, slideClass : 'fbslide'};
+           image['type'] = 'image';
+           fbsrc.push(image);
+           console.log(image);
+       }
+    });
+    console.log(fbsrc);
+    $.fancybox.open(fbsrc, {}, index);
+}
+
 function cdsData(url) {
     if (objectImages.length == 0) {
         $.ajax({
@@ -37,11 +65,11 @@ function cdsData(url) {
                     image['height'] = value['pixelsY'];
                     image['url'] = value['url'];
                     derivatives[index] = image;
-                    console.log(image);
+                    //console.log(image);
                 });
                 objectImages[index] = derivatives;
             });
-            console.log(objectImages);
+            //console.log(objectImages);
             renderCdsImages();
         });
     }
@@ -58,9 +86,9 @@ function renderCdsImages() {
     if (objectImages.length > 1) {
         var html = "";
         $.each(objectImages, function(index, data){
-            console.log(objectImages);
+            //console.log(objectImages);
             html += "<div class='col-xs-6 col-sm-3 col-md-6'>"
-                + "<div onclick='setMainImage(objectImages[" + index + "]);'><img class=' img-responsive' src='"
+                + "<div onclick='setMainImage(objectImages[" + index + "], " + index + ");'><img class=' img-responsive' src='"
                 + data[1]['url'] + "'/></div>"
                 + data['metadata']['caption']
                 + "</div>";
@@ -75,15 +103,15 @@ function renderCdsImages() {
     }
 }
 
-function setMainImage(image) {
+function setMainImage(image, index) {
     var derivative = image[2] || image[1];
     var metadata = image['metadata'];
     var large_derivative = image[3] || image[2] || image[1];
 
     if (derivative) {
         var html = "";
-        html += "<img class='img-responsive hidden-sm' src='" + derivative['url'] + "' />";
-        html += "<img class='img-responsive visible-sm-block lazy' data-original='" + large_derivative['url'] + "' />";
+        html += "<img class='img-responsive hidden-sm' src='" + derivative['url'] + "' onclick='fancybox(" + index + ");' />";
+        html += "<img class='img-responsive visible-sm-block lazy' data-original='" + large_derivative['url'] + "' onclick='fancybox(" + index + ");'/>";
         $("#ycba-main-image").html(html);
     }
 
@@ -102,3 +130,4 @@ function applyLightSlider() {
         slideMargin: 10
     });
 }
+
