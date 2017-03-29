@@ -124,8 +124,8 @@ namespace :index do
       start += docs_returned
       response["response"]["docs"].each do |doc|
         id = doc['id']
-        isbn = get_isbn(doc)
         marc = get_marc(doc)
+        isbn = get_isbn(marc)
         form_genre = get_marc_field(marc, '655', 'a')
         marc_contents = get_marc_field(marc, '505', 'a')
         Rails.logger.info "#{id} : #{isbn} : #{form_genre}"
