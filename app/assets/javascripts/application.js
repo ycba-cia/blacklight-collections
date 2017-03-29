@@ -15,5 +15,5 @@
 //= require turbolinks//
 // Required by Blacklight
 //= require blacklight/blacklight
-
+//= require jquery.fancybox.min
 //= require_tree .
