@@ -48,6 +48,7 @@ group :development do
 end
 
 gem 'blacklight', "~> 6.0"
+gem 'blacklight-gallery'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'therubyracer'
 

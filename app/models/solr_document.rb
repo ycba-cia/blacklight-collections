@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 class SolrDocument
   include Blacklight::Solr::Document
+  include Blacklight::Gallery::OpenseadragonSolrDocument
+
 
   # self.unique_key = 'id'
 
-
-  #Bibliographic
   def physical_description
     self['physical_txt']
   end
@@ -38,7 +38,6 @@ class SolrDocument
     end
     cds_url
   end
-
 
   # Email uses the semantic field mappings below to generate the body of an email.
   SolrDocument.use_extension(Blacklight::Document::Email)

@@ -4,6 +4,14 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
 
   configure_blacklight do |config|
+    config.view.gallery.partials = [:compact_index]
+    config.view.masonry.partials = [:compact_index]
+    #config.view.slideshow.partials = [:compact_index]
+
+    config.index.thumbnail_method = :thumb
+    config.show.tile_source_field = :content_metadata_image_iiif_info_ssm
+    config.show.partials.insert(1, :openseadragon)
+
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #
@@ -21,8 +29,9 @@ class CatalogController < ApplicationController
     # solr path which will be added to solr base url before the other solr params.
     #config.solr_path = 'select'
 
+
     # items to show per page, each number in the array represent another option to choose from.
-    config.per_page = [10,20,50]
+    config.per_page = [15,50,100]
 
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
