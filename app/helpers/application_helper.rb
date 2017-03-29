@@ -90,21 +90,23 @@ module ApplicationHelper
   end
 
   def thumb(document, options)
-    url = nil
-    if document['thumbnail_ss'] and document['thumbnail_ss'][0]
-      url = document['thumbnail_ss'][0]
-    elsif document['recordtype_ss'] and document['recordtype_ss'][0].to_s == 'marc'
+    url = doc_thumbnail(document)
+    if document['recordtype_ss'] and document['recordtype_ss'][0].to_s == 'marc'
       if document['isbn_ss']
         url = "/bookcover/isbn/#{document['isbn_ss'][0]}/size/medium"
       elsif document['url_ss'] and document['url_ss'][0].start_with?('http://hdl.handle.net/10079/bibid/')
         cds_id = document['url_ss'][0].gsub('http://hdl.handle.net/10079/bibid/', '')
         cds = Rails.application.config_for(:cds)
         url = "http://#{cds['host']}/content/repository/YCBA/object/#{cds_id}/type/1/format/1"
-      else
-        url = "/no_cover.png"
       end
     end
-    image_tag url, alt: "cover image"
+    url ||= '/no_cover.png'
+    square = path_to_image('square.png')
+    image_tag url, alt: 'cover image', onerror: "this.src='#{square}';"
+  end
+
+  def doc_thumbnail(document)
+    document['thumbnail_ss'][0] if document['thumbnail_ss'] and document['thumbnail_ss'][0]
   end
 
 end
