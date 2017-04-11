@@ -19,12 +19,12 @@ var objectImages = [];
 function fancybox(index) {
     var fbsrc = [];
     $.each(objectImages, function (index, derivative) {
-        console.log(derivative);
+        var caption;
         var image = {
             opts: {}
         };
         if (derivative['metadata']) {
-            image['opts']['caption'] = derivative['metadata']['caption']
+            caption = derivative['metadata']['caption']
         }
         var size = 0;
        $.each(derivative, function(index, d) {
@@ -34,13 +34,11 @@ function fancybox(index) {
        });
        console.log(image['src']);
        if (image['src'] != null) {
-           image['opts'] = { iframe: { preload: true }, slideClass : 'fbslide'};
+           image['opts'] = { iframe: { preload: true }, slideClass : 'fbslide', caption: caption, margin: [100,100]};
            image['type'] = 'image';
            fbsrc.push(image);
-           console.log(image);
        }
     });
-    console.log(fbsrc);
     $.fancybox.open(fbsrc, {}, index);
 }
 
